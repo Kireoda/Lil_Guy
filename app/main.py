@@ -3,10 +3,16 @@ from sqlalchemy import inspect, text
 
 from app.database import Base, engine
 from app.models.entities import Creature, Interaction, User
+from app.routes import users, creatures, interactions
 
 app = FastAPI(title="Lil_Guy")
 
 Base.metadata.create_all(bind=engine)
+
+#API routers
+app.include_router(users.router)
+app.include_router(creatures.router)
+app.include_router(interactions.router)
 
 
 @app.get("/")
