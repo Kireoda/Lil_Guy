@@ -1,0 +1,688 @@
+
+/* =========================================
+   LIL_GUY — CYBER FUTURISTIC THEME
+   Pink LED Gradient + Lime Green Accents
+   ========================================= */
+
+
+/* 1. Design variables */
+
+:root {
+    --bg-main: #070914;
+    --bg-panel: #0e1224;
+    --bg-panel-light: #151a30;
+
+    --neon-pink: #ff35d3;
+    --neon-pink-light: #ffb5f0;
+    --neon-pink-dark: #a81d91;
+
+    --neon-lime: #c6ff4d;
+    --neon-blue: #4de8ff;
+
+    /* Signature pink gradient */
+    --pink-gradient: linear-gradient(
+        135deg,
+        #ff35d3,
+        #ffb5f0,
+        #ff35d3
+    );
+
+    --pink-gradient-reverse: linear-gradient(
+        135deg,
+        #ffb5f0,
+        #ff35d3,
+        #ffb5f0
+    );
+
+    /* Pink LED glow */
+    --pink-glow:
+        0 0 8px rgba(255, 53, 211, 0.8),
+        0 0 20px rgba(255, 53, 211, 0.5),
+        0 0 35px rgba(255, 53, 211, 0.25);
+
+    --text-main: #f4f2ff;
+    --text-muted: #969bb5;
+    --border-colour: #292d48;
+
+    --font-display: "Orbitron", sans-serif;
+    --font-body: "Inter", sans-serif;
+}
+
+
+/* 2. Global styles */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    color: var(--text-main);
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+
+    /* Subtle pink cyber grid */
+    background-image:
+        linear-gradient(
+            rgba(255, 53, 211, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 53, 211, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 35px 35px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--neon-lime);
+    outline-offset: 4px;
+}
+
+::selection {
+    color: var(--bg-main);
+    background: var(--neon-pink-light);
+}
+
+
+/* 3. Navigation */
+
+.site-header {
+    position: relative;
+    z-index: 10;
+
+    border-bottom: 1px solid var(--border-colour);
+    background: rgba(7, 9, 20, 0.94);
+}
+
+.site-nav {
+    min-height: 78px;
+}
+
+.brand-name {
+    color: var(--text-main) !important;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+}
+
+/* Pink gradient logo icon */
+.brand-icon {
+    margin-right: 0.4rem;
+
+    background: var(--pink-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    filter: drop-shadow(0 0 8px rgba(255, 53, 211, 0.6));
+}
+
+.site-nav .nav-link {
+    position: relative;
+
+    margin-left: 1rem;
+    padding: 0.7rem 0.2rem !important;
+
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    transition:
+        color 0.2s ease,
+        text-shadow 0.2s ease;
+}
+
+.site-nav .nav-link:hover,
+.site-nav .nav-link.active {
+    color: var(--neon-pink-light);
+
+    text-shadow: 0 0 8px rgba(255, 53, 211, 0.5);
+}
+
+/* Gradient underline for active navigation */
+.site-nav .nav-link.active::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    height: 3px;
+    background: var(--pink-gradient);
+    box-shadow: var(--pink-glow);
+
+    content: "";
+}
+
+/* Mobile menu button */
+.menu-toggle {
+    border: 1px solid transparent;
+    border-radius: 0;
+
+    color: var(--neon-pink-light);
+
+    background:
+        linear-gradient(var(--bg-main), var(--bg-main)) padding-box,
+        var(--pink-gradient) border-box;
+}
+
+.menu-toggle:focus {
+    box-shadow: var(--pink-glow);
+}
+
+.menu-symbol {
+    font-size: 1.4rem;
+}
+
+
+/* 4. Landing page layout */
+
+.landing-page {
+    flex: 1;
+    display: flex;
+}
+
+.hero {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    width: min(100%, 1500px);
+    min-height: 650px;
+    margin: auto;
+    padding: 5rem clamp(1.5rem, 7vw, 7rem);
+
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 600px;
+}
+
+/* Green system status text */
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+
+    margin-bottom: 1.8rem;
+
+    color: var(--neon-lime);
+
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    line-height: 1.8;
+}
+
+/* Green status LED */
+.status-dot {
+    flex: 0 0 auto;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: var(--neon-lime);
+
+    box-shadow:
+        0 0 8px var(--neon-lime),
+        0 0 16px rgba(198, 255, 77, 0.6);
+}
+
+.hero h1 {
+    margin: 0 0 1.5rem;
+
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+}
+
+/* Pink gradient heading text */
+.text-neon {
+    background: var(--pink-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    filter: drop-shadow(0 0 10px rgba(255, 53, 211, 0.25));
+}
+
+.hero-description {
+    max-width: 440px;
+    margin-bottom: 2rem;
+
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+/* Gradient-outline enter button */
+.btn-enter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+
+    min-height: 52px;
+    padding: 0.9rem 1.6rem;
+
+    border: 1px solid transparent;
+    border-radius: 2px;
+
+    color: var(--text-main);
+
+    background:
+        linear-gradient(var(--bg-main), var(--bg-main)) padding-box,
+        var(--pink-gradient) border-box;
+
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-enter:hover {
+    color: var(--bg-main);
+    background: var(--pink-gradient);
+    box-shadow: var(--pink-glow);
+    transform: translateY(-2px);
+}
+
+.hero-footnote {
+    margin-top: 1.5rem;
+
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+}
+
+
+/* 5. Creature and neon halo */
+
+.hero-visual {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    width: 100%;
+    min-height: 430px;
+
+    isolation: isolate;
+}
+
+/* Shared halo positioning */
+.halo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    aspect-ratio: 1;
+    border: 3px solid var(--neon-pink);
+    border-radius: 50%;
+
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+/* Outer pink LED ring */
+.halo-outer {
+    width: min(90%, 400px);
+
+    border: 4px solid transparent;
+
+    background:
+        linear-gradient(var(--bg-main), var(--bg-main)) padding-box,
+        var(--pink-gradient) border-box;
+
+    opacity: 0.95;
+
+    box-shadow:
+        0 0 8px #ff35d3,
+        0 0 18px rgba(255, 53, 211, 0.7),
+        0 0 35px rgba(255, 53, 211, 0.35);
+}
+
+/* Inner pink LED ring */
+.halo-inner {
+    width: min(72%, 310px);
+
+    border: 3px solid transparent;
+
+    background:
+        linear-gradient(var(--bg-main), var(--bg-main)) padding-box,
+        var(--pink-gradient-reverse) border-box;
+
+    box-shadow:
+        0 0 8px rgba(255, 53, 211, 0.8),
+        0 0 20px rgba(255, 53, 211, 0.4);
+}
+
+
+/* Creature body */
+
+.pet-frame {
+    position: relative;
+    z-index: 2;
+
+    width: 230px;
+    height: 140px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(145deg, #191d35, #080a16) padding-box,
+        var(--pink-gradient) border-box;
+
+    border: 2px solid transparent;
+
+    clip-path: polygon(
+        10% 0,
+        90% 0,
+        100% 15%,
+        100% 85%,
+        90% 100%,
+        10% 100%,
+        0 85%,
+        0 15%
+    );
+
+    filter: drop-shadow(0 0 12px rgba(255, 53, 211, 0.4));
+}
+
+.pet-face {
+    position: relative;
+
+    width: 66%;
+    height: 50%;
+}
+
+
+/* Green creature eyes */
+
+.pet-eye {
+    position: absolute;
+    top: 12%;
+
+    width: 20%;
+    height: 40%;
+
+    border-radius: 50%;
+    background: var(--neon-lime);
+
+    box-shadow:
+        0 0 8px var(--neon-lime),
+        0 0 18px rgba(198, 255, 77, 0.6);
+}
+
+.eye-left {
+    left: 18%;
+}
+
+.eye-right {
+    right: 18%;
+}
+
+
+/* Pink creature mouth */
+
+.pet-mouth {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+
+    width: 27%;
+    height: 12%;
+
+    border-bottom: 2px solid var(--neon-pink-light);
+    border-radius: 0 0 50% 50%;
+
+    filter: drop-shadow(0 0 5px rgba(255, 53, 211, 0.6));
+
+    transform: translateX(-50%);
+}
+
+
+/* Green character label */
+
+.visual-label {
+    position: absolute;
+    bottom: 7%;
+
+    color: var(--neon-lime);
+
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+
+    text-shadow: 0 0 8px rgba(198, 255, 77, 0.35);
+}
+
+
+/* Decorative cyber-sigil elements */
+
+.hero-decoration {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sigil {
+    position: absolute;
+
+    background: var(--pink-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    filter: drop-shadow(0 0 8px rgba(255, 53, 211, 0.4));
+
+    opacity: 0.8;
+    font-size: 2rem;
+}
+
+.sigil-top {
+    top: 13%;
+    right: 7%;
+}
+
+/* Keep one lime-green decorative accent */
+.sigil-bottom {
+    bottom: 12%;
+    left: 4%;
+
+    color: var(--neon-lime);
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+
+    filter: drop-shadow(0 0 8px rgba(198, 255, 77, 0.5));
+}
+
+/* Optional floating animation */
+
+@keyframes pet-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+/* 6. Footer */
+
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 1.25rem clamp(1.5rem, 4vw, 4rem);
+
+    border-top: 1px solid var(--border-colour);
+    color: var(--text-muted);
+
+    font-family: var(--font-display);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+}
+
+.footer-symbol {
+    margin-left: 0.4rem;
+
+    background: var(--pink-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+
+/* 7. Responsive layouts */
+
+@media (max-width: 767.98px) {
+    .site-nav {
+        min-height: 68px;
+    }
+
+    .site-nav .navbar-collapse {
+        padding: 0.5rem 0 1rem;
+    }
+
+    .site-nav .navbar-nav {
+        align-items: stretch !important;
+        gap: 0.25rem;
+    }
+
+    .site-nav .nav-link {
+        margin-left: 0;
+        padding: 0.8rem 0.5rem !important;
+    }
+
+    .site-nav .nav-link.active::after {
+        right: auto;
+        width: 45px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+        min-height: auto;
+        padding: 4rem 1.5rem 3rem;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .eyebrow {
+        justify-content: center;
+        font-size: 0.58rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.3rem, 10vw, 3.7rem);
+    }
+
+    .hero-description {
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 0.95rem;
+    }
+
+    .hero-visual {
+        min-height: 400px;
+    }
+
+    .halo-outer {
+        width: min(80%, 310px);
+    }
+
+    .halo-inner {
+        width: min(65%, 250px);
+    }
+
+    .pet-frame {
+        width: clamp(135px, 42vw, 180px);
+    }
+
+    .visual-label {
+        bottom: 3%;
+    }
+
+    .sigil-top {
+        top: 5%;
+        right: 6%;
+    }
+
+    .sigil-bottom {
+        bottom: 5%;
+        left: 6%;
+    }
+
+    .site-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        font-size: 0.52rem;
+    }
+}
+
+
+/* 8. Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

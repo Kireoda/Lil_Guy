@@ -192,3 +192,633 @@ The font I gave you is an example, if you find that looks similar to it and is m
 
 I’d use this as the visual direction for Lil_Guy: the desktop has the detailed device panel on the left, the creature and halo in the centre, and a live interaction feed on the right. On mobile, the device details become compact, while the creature, mood indicators and recent interactions remain easy to see.
 One adjustment I'd make when we implement it: keep the actual page a little simpler than this concept image. We can use the neon framing and sigil-inspired details, but keep text readable and make the interaction feed compact. The mobile status indicator can be a green LED with “STATUS: ACTIVE”, switching to red with “STATUS: INACTIVE” when the device is offline.
+
+okay css time, based on this index.html and the previous design we talked about, give me css template that suits.
+
+Let's make the CSS give Lil_Guy its actual identity: deep navy, neon pink and lime, futuristic typography, angular borders, a glowing halo, and responsive layouts. We'll also make sure the mobile menu works with the Bootstrap setup in index.html.
+Open app/static/css/style.css and add the following.
+style.css
+
+/* =========================================
+   LIL_GUY — CYBER FUTURISTIC THEME
+   ========================================= */
+
+/* 1. Design variables */
+
+:root {
+    --bg-main: #070914;
+    --bg-panel: #0e1224;
+    --bg-panel-light: #151a30;
+
+    --neon-pink: #ff35d3;
+    --neon-pink-dark: #a81d91;
+    --neon-lime: #c6ff4d;
+    --neon-blue: #4de8ff;
+
+    --text-main: #f4f2ff;
+    --text-muted: #969bb5;
+    --border-colour: #292d48;
+
+    --font-display: "Orbitron", sans-serif;
+    --font-body: "Inter", sans-serif;
+}
+
+
+/* 2. Global styles */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    color: var(--text-main);
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+
+    background-image:
+        linear-gradient(
+            rgba(77, 232, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(77, 232, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 35px 35px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--neon-lime);
+    outline-offset: 4px;
+}
+
+::selection {
+    color: var(--bg-main);
+    background: var(--neon-pink);
+}
+
+
+/* 3. Navigation */
+
+.site-header {
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid var(--border-colour);
+    background: rgba(7, 9, 20, 0.94);
+}
+
+.site-nav {
+    min-height: 78px;
+}
+
+.brand-name {
+    color: var(--text-main) !important;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+}
+
+.brand-icon {
+    margin-right: 0.4rem;
+    color: var(--neon-pink);
+    text-shadow: 0 0 12px var(--neon-pink);
+}
+
+.site-nav .nav-link {
+    position: relative;
+    margin-left: 1rem;
+    padding: 0.7rem 0.2rem !important;
+
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    transition: color 0.2s ease;
+}
+
+.site-nav .nav-link:hover,
+.site-nav .nav-link.active {
+    color: var(--neon-pink);
+}
+
+.site-nav .nav-link.active::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    height: 2px;
+    background: var(--neon-pink);
+    box-shadow: 0 0 8px var(--neon-pink);
+
+    content: "";
+}
+
+.menu-toggle {
+    border: 1px solid var(--neon-pink);
+    border-radius: 0;
+    color: var(--neon-pink);
+}
+
+.menu-toggle:focus {
+    box-shadow: 0 0 0 0.15rem rgba(255, 53, 211, 0.25);
+}
+
+.menu-symbol {
+    font-size: 1.4rem;
+}
+
+
+/* 4. Landing page layout */
+
+.landing-page {
+    flex: 1;
+    display: flex;
+}
+
+.hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    width: min(100%, 1500px);
+    min-height: 650px;
+    margin: auto;
+    padding: 5rem clamp(1.5rem, 7vw, 7rem);
+
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+
+    margin-bottom: 1.8rem;
+    color: var(--neon-lime);
+
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    line-height: 1.8;
+}
+
+.status-dot {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: var(--neon-lime);
+    box-shadow: 0 0 10px var(--neon-lime);
+}
+
+.hero h1 {
+    margin: 0 0 1.5rem;
+
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+}
+
+.text-neon {
+    color: var(--neon-pink);
+    text-shadow: 0 0 20px rgba(255, 53, 211, 0.3);
+}
+
+.hero-description {
+    max-width: 440px;
+    margin-bottom: 2rem;
+
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.9;
+}
+
+.btn-enter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+
+    min-height: 52px;
+    padding: 0.9rem 1.6rem;
+
+    border: 1px solid var(--neon-pink);
+    border-radius: 2px;
+
+    color: var(--text-main);
+    background: rgba(255, 53, 211, 0.08);
+
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-enter:hover {
+    color: var(--bg-main);
+    background: var(--neon-pink);
+    box-shadow: 0 0 25px rgba(255, 53, 211, 0.35);
+    transform: translateY(-2px);
+}
+
+.hero-footnote {
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+}
+
+
+/* 5. Creature and neon halo */
+
+.hero-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    width: 100%;
+    min-height: 430px;
+    isolation: isolate;
+}
+
+.halo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    aspect-ratio: 1;
+    border: 1px solid var(--neon-pink);
+    border-radius: 50%;
+
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+.halo-outer {
+    width: min(90%, 390px);
+    opacity: 0.6;
+    box-shadow:
+        0 0 15px rgba(255, 53, 211, 0.15),
+        inset 0 0 15px rgba(255, 53, 211, 0.08);
+}
+
+.halo-inner {
+    width: min(72%, 310px);
+    border-color: rgba(198, 255, 77, 0.7);
+    box-shadow: 0 0 16px rgba(198, 255, 77, 0.12);
+}
+
+.pet-frame {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    width: clamp(145px, 20vw, 210px);
+    aspect-ratio: 1;
+
+    border: 1px solid var(--neon-pink);
+    background: linear-gradient(
+        145deg,
+        #17182d,
+        #090b18 70%
+    );
+
+    box-shadow:
+        0 0 30px rgba(255, 53, 211, 0.15),
+        inset 0 0 30px rgba(255, 53, 211, 0.08);
+
+    clip-path: polygon(
+        15% 0,
+        85% 0,
+        100% 15%,
+        100% 85%,
+        85% 100%,
+        15% 100%,
+        0 85%,
+        0 15%
+    );
+
+    animation: pet-float 4s ease-in-out infinite;
+}
+
+.pet-face {
+    position: relative;
+    width: 66%;
+    height: 50%;
+}
+
+.pet-eye {
+    position: absolute;
+    top: 12%;
+
+    width: 17%;
+    height: 32%;
+
+    border-radius: 50%;
+    background: var(--neon-lime);
+    box-shadow: 0 0 12px rgba(198, 255, 77, 0.7);
+}
+
+.eye-left {
+    left: 18%;
+}
+
+.eye-right {
+    right: 18%;
+}
+
+.pet-mouth {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+
+    width: 27%;
+    height: 12%;
+
+    border-bottom: 2px solid var(--neon-pink);
+    border-radius: 0 0 50% 50%;
+
+    transform: translateX(-50%);
+}
+
+.visual-label {
+    position: absolute;
+    bottom: 7%;
+
+    color: var(--neon-lime);
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+}
+
+.hero-decoration {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.sigil {
+    position: absolute;
+    color: var(--neon-pink);
+    opacity: 0.6;
+    font-size: 2rem;
+}
+
+.sigil-top {
+    top: 13%;
+    right: 7%;
+}
+
+.sigil-bottom {
+    bottom: 12%;
+    left: 4%;
+    color: var(--neon-lime);
+}
+
+.hero-line {
+    position: absolute;
+    top: 20%;
+    right: 0;
+
+    width: 15%;
+    height: 1px;
+
+    background: var(--neon-pink);
+    opacity: 0.6;
+}
+
+@keyframes pet-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+/* 6. Footer */
+
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 1.25rem clamp(1.5rem, 4vw, 4rem);
+
+    border-top: 1px solid var(--border-colour);
+    color: var(--text-muted);
+
+    font-family: var(--font-display);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+}
+
+.footer-symbol {
+    margin-left: 0.4rem;
+    color: var(--neon-pink);
+}
+
+
+/* 7. Responsive layouts */
+
+@media (max-width: 767.98px) {
+    .site-nav {
+        min-height: 68px;
+    }
+
+    .site-nav .navbar-collapse {
+        padding: 0.5rem 0 1rem;
+    }
+
+    .site-nav .navbar-nav {
+        align-items: stretch !important;
+        gap: 0.25rem;
+    }
+
+    .site-nav .nav-link {
+        margin-left: 0;
+        padding: 0.8rem 0.5rem !important;
+    }
+
+    .site-nav .nav-link.active::after {
+        right: auto;
+        width: 45px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+
+        min-height: auto;
+        padding: 4rem 1.5rem 3rem;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .eyebrow {
+        justify-content: center;
+        font-size: 0.58rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.3rem, 10vw, 3.7rem);
+    }
+
+    .hero-description {
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 0.95rem;
+    }
+
+    .hero-visual {
+        min-height: 340px;
+    }
+
+    .halo-outer {
+        width: min(80%, 310px);
+    }
+
+    .halo-inner {
+        width: min(65%, 250px);
+    }
+
+    .pet-frame {
+        width: clamp(135px, 42vw, 180px);
+    }
+
+    .visual-label {
+        bottom: 3%;
+    }
+
+    .sigil-top {
+        top: 5%;
+        right: 6%;
+    }
+
+    .sigil-bottom {
+        bottom: 5%;
+        left: 6%;
+    }
+
+    .site-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        font-size: 0.52rem;
+    }
+}
+
+/* 8. Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+2. Test the landing page
+Save style.css, then refresh http://127.0.0.1:8000/.
+You should now have a dark grid background, neon navigation, a two-column hero section on desktop, a geometric creature face with glowing halo rings, and a stacked layout on mobile.
+If the page still looks unstyled, check that the file is located at app/static/css/style.css and that your index.html links to it using:
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', path='css/style.css') }}"
+>
+
+The CSS currently creates a placeholder creature face. We'll replace or enhance it once we decide how to represent the real creature's different expressions and moods.
+Next, I'd make dashboard.html use the same theme, then add its device-status panel, mood halo and interaction feed.
+
+Whats wrong here?
+INFO:     127.0.0.1:49673 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49673 - "GET /static/css/style.css HTTP/1.1" 404 Not Found
+
+Your homepage is loading successfully (200 OK), but FastAPI can't find your CSS file (404 Not Found). This usually means the stylesheet path or filename doesn't match what FastAPI is serving.
+Let's check it step by step.
+1. Check your folder structure
+In VS Code, make sure your files are arranged like this:
+Lil_Guy/
+└── app/
+    ├── main.py
+    ├── static/
+    │   ├── css/
+    │   │   └── style.css
+    │   ├── images/
+    │   └── js/
+    └── templates/
+        └── index.html
+
+
+Pay particular attention to style.css — it must be inside app/static/css/, not app/templates/ or app/static/ directly.
+2. Check app/main.py
+You should already have this near the top of the file:
+app.mount(    "/static",    StaticFiles(directory="app/static"),    name="static",)
+
+This tells FastAPI to serve files inside app/static whenever a browser requests something under /static/.
+3. Check index.html
+Inside the <head> section, confirm your stylesheet link looks like this:
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', path='css/style.css') }}"
+>
+
+This generates the URL /static/css/style.css.
+4. Test the file directly
+With your server running, open:
+http://127.0.0.1:8000/static/css/style.css
+- If the CSS text appears: the file is being served correctly.
+- If you still get a 404: FastAPI is looking in the wrong location, or the file isn't where expected.
+You shouldn't need to reinstall anything or rewrite your CSS.
+If it still fails, send me a screenshot of your VS Code Explorer showing the app/static folders and style.css. I can pinpoint the mismatch from that.
