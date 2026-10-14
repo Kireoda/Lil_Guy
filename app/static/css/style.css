@@ -247,7 +247,6 @@ button:focus-visible {
 }
 
 /* Home page */
-
 .landing-page {
     flex: 1;
     display: flex;
@@ -339,7 +338,6 @@ button:focus-visible {
 }
 
 /* Shared Lil_Guy character */
-
 .hero-visual {
     position: relative;
 
@@ -489,7 +487,6 @@ button:focus-visible {
 }
 
 /* Home page decorations */
-
 .hero-decoration {
     position: absolute;
     inset: 0;
@@ -549,6 +546,15 @@ button:focus-visible {
     50% {
         transform: translateY(-8px);
     }
+}
+
+.dashboard-main > .hero-content h1 {
+    margin: 0 0 1.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
 }
 
 /* Shared footer */
@@ -848,6 +854,14 @@ button:focus-visible {
     text-align: center;
 
     overflow-wrap: anywhere;
+}
+
+/* Settings page width */
+.settings-page .dashboard-panel.mb-4, .mb-4 {
+    max-width: 90%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Bottom dashboard information */
