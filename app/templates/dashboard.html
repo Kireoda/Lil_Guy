@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet Lil_Guy, your physical digital companion.">
+
+    <title>LIL_GUY | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+
+</head>
+
+<body class="dashboard-page">
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md site-nav">
+            <div class="container-fluid px-4">
+
+                <a class="navbar-brand brand-name" href="/">
+                    <span class="brand-icon">◇</span>
+                    LIL_GUY
+                </a>
+
+                <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="menu-symbol">☰</span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavigation">
+                    <ul class="navbar-nav ms-auto align-items-md-center">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/dashboard" aria-current="page">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/interactions">
+                                Interactions
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/settings">
+                                Settings
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+
+        <section class="dashboard-grid">
+
+            <section class="dashboard-panel device-panel">
+
+                <div class="panel-heading">
+                    <h2>DEVICE STATUS</h2>
+                </div>
+
+                <div class="device-status-line">
+                    <span class="status-dot"></span>
+                    <strong>ADD DEVICE STATUS HERE</strong>
+                </div>
+
+                <div class="current-state">
+                    CURRENT STATE:
+                    <span class="mood-happy">
+                        ADD CURRENT MOOD HERE
+                    </span>
+                </div>
+
+                <div class="device-detail">
+                    <span>PI STATUS</span>
+                    <span class="detail-value">
+                        ADD PI STATUS HERE
+                    </span>
+                </div>
+
+                <div class="device-detail">
+                    <span>SENSORS</span>
+                    <span class="detail-value">
+                        ADD SENSOR STATUS HERE
+                    </span>
+                </div>
+
+                <div class="device-detail">
+                    <span>LAST SEEN</span>
+                    <span class="detail-value">
+                        ADD LAST SEEN HERE
+                    </span>
+                </div>
+
+            </section>
+
+            <section class="dashboard-creature">
+
+                <div class="hero-visual dashboard-pet-visual" aria-label="Lil_Guy character display">
+                    <div class="halo halo-outer"></div>
+                    <div class="halo halo-inner"></div>
+
+                    <div class="pet-frame">
+                        <div class="pet-face">
+                            <span class="pet-eye eye-left"></span>
+                            <span class="pet-eye eye-right"></span>
+                            <span class="pet-mouth"></span>
+                        </div>
+                    </div>
+
+                    <span class="visual-label">ENTITY_001</span>
+                </div>
+
+            </section>
+
+            <section class="dashboard-panel interactions-panel">
+
+                <div class="panel-heading">
+                    <h2>LIVE INTERACTIONS</h2>
+
+                    <a href="/interactions" class="panel-link">
+                        VIEW ALL →
+                    </a>
+                </div>
+
+                <div class="interaction-list">
+
+                    <article class="interaction-item">
+                        <div class="interaction-icon">
+                            ADD INTERACTION IMAGE HERE
+                        </div>
+
+                        <div class="interaction-content">
+                            <p>ADD INTERACTION HERE</p>
+                            <span class="interaction-time">
+                                ADD DATE AND TIME HERE
+                            </span>
+                            <span class="interaction-effect yellow-text">
+                                ADD MOOD EFFECT HERE
+                            </span>
+                        </div>
+                    </article>
+
+                    <article class="interaction-item">
+                        <div class="interaction-icon">
+                            ADD INTERACTION IMAGE HERE
+                        </div>
+
+                        <div class="interaction-content">
+                            <p>ADD INTERACTION HERE</p>
+                            <span class="interaction-time">
+                                ADD DATE AND TIME HERE
+                            </span>
+                            <span class="interaction-effect blue-text">
+                                ADD MOOD EFFECT HERE
+                            </span>
+                        </div>
+                    </article>
+
+                    <article class="interaction-item">
+                        <div class="interaction-icon">
+                            ADD INTERACTION IMAGE HERE
+                        </div>
+
+                        <div class="interaction-content">
+                            <p>ADD INTERACTION HERE</p>
+                            <span class="interaction-time">
+                                ADD DATE AND TIME HERE
+                            </span>
+                            <span class="interaction-effect yellow-text">
+                                ADD MOOD EFFECT HERE
+                            </span>
+                        </div>
+                    </article>
+
+                    <article class="interaction-item">
+                        <div class="interaction-icon">
+                            ADD INTERACTION IMAGE HERE
+                        </div>
+
+                        <div class="interaction-content">
+                            <p>ADD INTERACTION HERE</p>
+                            <span class="interaction-time">
+                                ADD DATE AND TIME HERE
+                            </span>
+                            <span class="interaction-effect blue-text">
+                                ADD MOOD EFFECT HERE
+                            </span>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+        </section>
+
+        <section class="mood-grid">
+
+            <article class="dashboard-panel mood-card happiness-card">
+
+                <div class="mood-card-heading">
+                    <div class="mood-card-icon">
+                        ADD HAPPINESS IMAGE HERE
+                    </div>
+
+                    <h2>HAPPINESS</h2>
+                </div>
+
+                <div class="mood-value yellow-text">
+                    ADD HAPPINESS VALUE HERE
+                </div>
+
+                <div class="mood-meter" aria-label="Happiness level">
+                    <span class="mood-meter-fill happiness-bar"></span>
+                </div>
+
+            </article>
+
+            <article class="dashboard-panel mood-card sleepiness-card">
+
+                <div class="mood-card-heading">
+                    <div class="mood-card-icon">
+                        ADD SLEEPINESS IMAGE HERE
+                    </div>
+
+                    <h2>SLEEPINESS</h2>
+                </div>
+
+                <div class="mood-value blue-text">
+                    ADD SLEEPINESS VALUE HERE
+                </div>
+
+                <div class="mood-meter" aria-label="Sleepiness level">
+                    <span class="mood-meter-fill sleepiness-bar"></span>
+                </div>
+
+            </article>
+
+            <article class="dashboard-panel mood-card other-card">
+
+                <div class="mood-card-heading">
+                    <div class="mood-card-icon">
+                        ADD IMAGE HERE
+                    </div>
+
+                    <h2>OTHER</h2>
+                </div>
+
+                <div class="other-card-content">
+                    ADD THIRD DASHBOARD METRIC HERE
+                </div>
+
+            </article>
+
+        </section>
+
+        <footer class="dashboard-bottom">
+            <span>LIL_GUY // VERSION 0.1</span>
+            <span>ADD CONNECTION STATUS HERE</span>
+            <span>A SMALL CREATURE. A BRIGHTER DAY.</span>
+        </footer>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
