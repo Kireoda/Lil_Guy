@@ -7,8 +7,22 @@ from sqlalchemy import inspect, text
 from app.database import Base, engine
 from app.models.entities import Creature, Interaction, User
 from app.routes import users, creatures, interactions
+import os
+from starlette.middleware.sessions import SessionMiddleware
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="Lil_Guy")
+
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=os.getenv("SESSION_SECRET", "development-secret-change-me"),
+    session_cookie="lil_guy_session",
+    max_age=60 * 60 * 24,
+    same_site="lax",
+    https_only=os.getenv("ENVIRONMENT") == "production",
+)
 
 # Create DT tables
 Base.metadata.create_all(bind=engine)
