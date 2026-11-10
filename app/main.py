@@ -1,5 +1,5 @@
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import inspect, text
@@ -10,14 +10,20 @@ from app.routes import users, creatures, interactions
 import os
 from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
+from app.dependencies import get_current_user
 
 load_dotenv()
 
 app = FastAPI(title="Lil_Guy")
 
+session_secret = os.getenv("SESSION_SECRET")
+
+if not session_secret:
+    raise RuntimeError("SESSION_SECRET is missing from environment variables.")
+
 app.add_middleware(
     SessionMiddleware,
-    secret_key=os.getenv("SESSION_SECRET", "development-secret-change-me"),
+    secret_key=session_secret,
     session_cookie="lil_guy_session",
     max_age=60 * 60 * 24,
     same_site="lax",
@@ -51,29 +57,38 @@ def home(request: Request):
 
 # Dashboard page
 @app.get("/dashboard")
-def dashboard(request: Request):
+def dashboard(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+):
     return templates.TemplateResponse(
         request=request,
         name="dashboard.html",
-        context={},
+        context={"current_user": current_user},
     )
 
 # Interaction history page
 @app.get("/interactions")
-def interactions_page(request: Request):
+def interactions_page(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+):
     return templates.TemplateResponse(
         request=request,
         name="interactions.html",
-        context={},
+        context={"current_user": current_user},
     )
 
 # Settings page
 @app.get("/settings")
-def settings_page(request: Request):
+def settings_page(
+    request: Request,
+    current_user: User = Depends(get_current_user),
+):
     return templates.TemplateResponse(
         request=request,
         name="settings.html",
-        context={},
+        context={"current_user": current_user},
     )
 
 # Database health check
@@ -89,3 +104,22 @@ def check_database():
         "database": "connected",
         "tables": tables,
     }
+
+# Login page
+@app.get("/login")
+def login_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html",
+        context={},
+    )
+
+
+# Registration page
+@app.get("/register")
+def register_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="register.html",
+        context={},
+    )
