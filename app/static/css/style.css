@@ -1,4 +1,3 @@
-
 /* Design variables */
 
 :root {
@@ -857,7 +856,7 @@ button:focus-visible {
 }
 
 /* Settings page width */
-.settings-page .dashboard-panel.mb-4, .mb-4 {
+.settings-page .dashboard-panel.mb-4 {
     max-width: 90%;
     width: 100%;
     margin-left: auto;

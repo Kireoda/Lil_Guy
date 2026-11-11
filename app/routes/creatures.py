@@ -64,3 +64,30 @@ def get_creature(
         )
 
     return creature
+
+@router.put("/", response_model=CreatureResponse)
+def update_creature(
+    creature_data: CreatureUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    creature = db.scalar(
+        select(Creature).where(Creature.owner_id == current_user.id)
+    )
+
+    if creature is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="You don't have your lil guy yet",
+        )
+
+    if creature_data.name is not None:
+        creature.name = creature_data.name
+
+    if creature_data.personality is not None:
+        creature.personality = creature_data.personality
+
+    db.commit()
+    db.refresh(creature)
+
+    return creature

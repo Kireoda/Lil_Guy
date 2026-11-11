@@ -2,9 +2,10 @@
 from fastapi import FastAPI, Request, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import inspect, text
+from sqlalchemy import inspect, text, select
+from sqlalchemy.orm import Session
 
-from app.database import Base, engine
+from app.database import Base, engine, get_db
 from app.models.entities import Creature, Interaction, User
 from app.routes import users, creatures, interactions
 import os
@@ -55,16 +56,23 @@ def home(request: Request):
         context={},
     )
 
-# Dashboard page
 @app.get("/dashboard")
 def dashboard(
     request: Request,
+    db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    creature = db.scalar(
+        select(Creature).where(Creature.owner_id == current_user.id)
+    )
+
     return templates.TemplateResponse(
         request=request,
         name="dashboard.html",
-        context={"current_user": current_user},
+        context={
+            "current_user": current_user,
+            "creature": creature,
+        },
     )
 
 # Interaction history page

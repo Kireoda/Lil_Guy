@@ -134,24 +134,39 @@
             </section>
 
             <section class="dashboard-creature">
+                {% if creature %}
 
-                <div class="hero-visual dashboard-pet-visual"
-                    aria-label="Lil_Guy character display">
+                    <div class="hero-visual dashboard-pet-visual"
+                        aria-label="Lil_Guy character display">
 
-                    <div class="halo halo-outer"></div>
-                    <div class="halo halo-inner"></div>
+                        <div class="halo halo-outer"></div>
+                        <div class="halo halo-inner"></div>
 
-                    <div class="pet-frame">
-                        <div class="pet-face">
-                            <span class="pet-eye eye-left"></span>
-                            <span class="pet-eye eye-right"></span>
-                            <span class="pet-mouth"></span>
+                        <div class="pet-frame">
+                            <div class="pet-face">
+                                <span class="pet-eye eye-left"></span>
+                                <span class="pet-eye eye-right"></span>
+                                <span class="pet-mouth"></span>
+                            </div>
                         </div>
                     </div>
 
-                    <span class="visual-label">ENTITY_001</span>
+                    <h2>{{ creature.name }}</h2>
+                    <p>{{ creature.personality }} personality</p>
+                    <p>Current mood: {{ creature.current_mood }}</p>
 
-                </div>
+                {% else %}
+
+                    <div class="no-creature">
+                        <div class="no-creature-icon">◇</div>
+
+                        <h2>Your lil guy is waiting.</h2>
+
+                        <p>You haven't created your lil guy yet.</p>
+
+                    </div>
+
+                {% endif %}
 
             </section>
 
@@ -305,6 +320,78 @@
 
     </main>
 
+//CREATE LIL_GUY MODAL
+<div class="modal fade" id="createCreatureModal"
+     tabindex="-1"
+     aria-labelledby="createCreatureTitle"
+     aria-hidden="true"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content create-creature-modal">
+
+            <div class="modal-header">
+                <h2 class="modal-title" id="createCreatureTitle">
+                    CREATE YOUR LIL_GUY
+                </h2>
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    Give your lil guy a name and choose their personality.
+                </p>
+
+                <form id="createCreatureForm">
+
+                    <div class="mb-3">
+                        <label for="creatureName" class="form-label">
+                            Companion name
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="creatureName"
+                            value="Lil_Guy"
+                            minlength="1"
+                            maxlength="30"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="creaturePersonality" class="form-label">
+                            Personality
+                        </label>
+
+                        <select
+                            class="form-select"
+                            id="creaturePersonality"
+                            required
+                        >
+                            <option value="Curious">Curious</option>
+                            <option value="Grumpy">Grumpy</option>
+                            <option value="Affectionate">Affectionate</option>
+                        </select>
+                    </div>
+
+                    <p id="creatureError" class="text-danger"></p>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Create my Lil_Guy
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         document.getElementById("logoutButton").addEventListener("click", async () => {
             try {
@@ -323,9 +410,48 @@
                 alert("Unable to connect to the server.");
             }
         });
+
+    const hasCreature = {{ 'true' if creature else 'false' }};
+    
+    if (!hasCreature) {
+        const modalElement = document.getElementById("createCreatureModal");
+        const creatureModal = new bootstrap.Modal(modalElement);
+
+        creatureModal.show();
+    }
+
+    document.getElementById("createCreatureForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("creatureName").value.trim();
+        const personality = document.getElementById("creaturePersonality").value;
+        const errorMessage = document.getElementById("creatureError");
+
+        errorMessage.textContent = "";
+
+        try {
+            const response = await fetch("/creatures/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "same-origin",
+                body: JSON.stringify({ name, personality })
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                const data = await response.json();
+                errorMessage.textContent =
+                    data.detail || "Unable to create your Lil_Guy.";
+            }
+
+        } catch (error) {
+            errorMessage.textContent = "Unable to connect to the server.";
+        }
+    });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
 </body>
 </html>
